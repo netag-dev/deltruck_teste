@@ -3,7 +3,7 @@
 from flask.views import MethodView
 from flask_jwt_extended import jwt_required
 
-from app.security.authz import Authorization as authorization
+from app.infra.security.authz import Authorization as authorization
 
 
 class BaseProtectedView(MethodView):

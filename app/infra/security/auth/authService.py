@@ -6,7 +6,7 @@ import logging
 from app.utils import SingletonMeta
 
 from app.domain.gest_usuarios.user import UserService
-from app.security.securityConfig import SecurityConfig
+from app.infra.security.securityConfig import SecurityConfig
 from ..auth.exceptions import InvalidPasswordException
 
 

@@ -7,7 +7,7 @@ from .extensions import init_extensions
 
 from .config import AppConfigurator
 from .domain import register_domain_blueprints
-from .security import register_security_blueprints
+from .infra.security import register_security_blueprints
 from flask_cors import CORS
 
 

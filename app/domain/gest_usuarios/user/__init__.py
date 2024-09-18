@@ -43,5 +43,5 @@ def user_blueprints(app, BASE_API_URL):
     app.add_url_rule(
         f"{BASE_API_URL}/users/final",
         view_func=users_views,
-        methods=["POST"],
+        methods=["POST", "GET"],
     )

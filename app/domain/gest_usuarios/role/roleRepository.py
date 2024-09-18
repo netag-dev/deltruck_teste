@@ -13,3 +13,6 @@ class RoleRepository(BaseRepository):
 
     def find_by_name(self, name: str):
         return db.session.query(self.model).filter_by(name=name).first()
+
+    def find_all_except_user_and_root(self):
+        return db.session.query(Role).filter(Role.name.notin_(["USER", "ROOT"])).all()

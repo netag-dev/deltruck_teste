@@ -5,7 +5,7 @@ import logging
 from flask import request, jsonify, json
 
 from app.utils import BaseProtectedView, SchemaUtils, HateoasLinkGenerator
-from app.security.authz import Authorization as authorization
+from app.infra.security.authz import Authorization as authorization
 
 from app.domain.gest_usuarios.user import UserService
 from app.domain.gest_usuarios.user.schemas import (
@@ -86,6 +86,8 @@ class UsersApi(BaseProtectedView):
         return jsonify(SchemaUtils.serialize(UserResponseSchema(), user_criado)), 201
 
     def get(self, user_id=None):
+        if request.path.endswith("/final"):
+            return self._get_all_final_users()
         if user_id is None:
             return self._get_all()
         else:
@@ -96,6 +98,12 @@ class UsersApi(BaseProtectedView):
         users = self.user_service.get_all_except_role_user_and_root()
         # Retorna uma resposta com status 200 (OK) e corpo contendo a lista de usuários
         return jsonify(SchemaUtils.serialize(UserResponseSchema(), users)), 200
+
+    def _get_all_final_users(self):
+        """ """
+        final_users = self.user_service.get_all_final_users()
+        # Retorna uma resposta com status 200 (OK) e corpo contendo a lista de usuários finais
+        return jsonify(SchemaUtils.serialize(UserResponseSchema(), final_users)), 200
 
     def _get_user(self, user_id):
         """ """

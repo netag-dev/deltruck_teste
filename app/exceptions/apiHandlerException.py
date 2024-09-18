@@ -9,7 +9,9 @@ from sqlalchemy.exc import IntegrityError
 from jwt.exceptions import InvalidTokenError
 
 from . import EntityNotFoundException, EntityUniqueViolationException
-from ..security.auth.exceptions.invalidPasswordException import InvalidPasswordException
+from ..infra.security.auth.exceptions.invalidPasswordException import (
+    InvalidPasswordException,
+)
 
 from marshmallow import ValidationError
 
@@ -56,8 +58,7 @@ class ApiHandlerException:
         @self.app.errorhandler(Forbidden)
         def handle_forbidden_error(error):
             """Manipula erros 403 Forbidden"""
-            response = {"error": "Acesso negado",
-                        "message": str(error.description)}
+            response = {"error": "Acesso negado", "message": str(error.description)}
             return jsonify(response), 403
 
         @self.app.errorhandler(EntityNotFoundException)

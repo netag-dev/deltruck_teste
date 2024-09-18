@@ -34,17 +34,25 @@ class Config(object):
 
     # Configura Flask-Caching para usar Redis
 
+    # CACHE_TYPE = "redis"
+    # CACHE_DEFAULT_TIMEOUT = config("CACHE_DEFAULT_TIMEOUT", default=600, cast=int)
+    # CACHE_TIMEOUT_DAYS = config("CACHE_TIMEOUT_DAYS", default=1, cast=int)
+    # REDIS_CLIENT = redis.Redis(
+    #     host=config("REDIS_HOST", default="localhost"),
+    #    port=int(config("REDIS_PORT", default=6379)),
+    #    db=int(config("REDIS_DB", default=0)),
+    #    password=config("REDIS_PASSWORD", default=None),
+    # )
+    # CACHE_REDIS = REDIS_CLIENT
 
-# CACHE_TYPE = "redis"
-# CACHE_DEFAULT_TIMEOUT = config("CACHE_DEFAULT_TIMEOUT", default=600, cast=int)
-# CACHE_TIMEOUT_DAYS = config("CACHE_TIMEOUT_DAYS", default=1, cast=int)
-# REDIS_CLIENT = redis.Redis(
-#     host=config("REDIS_HOST", default="localhost"),
-#    port=int(config("REDIS_PORT", default=6379)),
-#    db=int(config("REDIS_DB", default=0)),
-#    password=config("REDIS_PASSWORD", default=None),
-# )
-# CACHE_REDIS = REDIS_CLIENT
+    # Configuração do  serviço de e-mail
+    MAIL_SERVER = config("MAIL_SERVER", default="mail.netag.ao")
+    MAIL_PORT = config("MAIL_PORT", default=465, cast=int)
+    MAIL_USE_TLS = config("MAIL_USE_TLS", default=False, cast=bool)
+    MAIL_USE_SSL = config("MAIL_USE_SSL", default=True, cast=bool)
+    MAIL_USERNAME = config("MAIL_USERNAME", default="dev.sys@netag.ao")
+    MAIL_PASSWORD = config("MAIL_PASSWORD", default="Angola2024#")
+    MAIL_DEFAULT_SENDER = config("MAIL_DEFAULT_SENDER", default="dev.sys@netag.ao")
 
 
 class DevConfig(Config):

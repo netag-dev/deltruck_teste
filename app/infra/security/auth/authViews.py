@@ -12,9 +12,9 @@ from datetime import datetime, timezone
 
 from app.utils import SchemaUtils
 
-from app.security.token import TokenService
-from app.security.auth import AuthService
-from app.security.auth.shemas import UserLoginSchema, AuthResponseSchema
+from app.infra.security.token import TokenService
+from app.infra.security.auth import AuthService
+from app.infra.security.auth.shemas import UserLoginSchema, AuthResponseSchema
 
 
 class AuthApi(MethodView):

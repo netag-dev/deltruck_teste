@@ -18,6 +18,6 @@ class RolesApi(BaseProtectedView):
 
     def _get_all(self):
         """ """
-        roles = self.role_service.get_all()
+        roles = self.role_service.get_all_except_user_and_root()
         # Retorna uma resposta com status 200 (OK) e corpo contendo a lista de roles
         return jsonify(SchemaUtils.serialize(RoleResponseSchema(), roles)), 200

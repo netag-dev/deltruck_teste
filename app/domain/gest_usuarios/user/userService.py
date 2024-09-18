@@ -5,7 +5,7 @@ import logging
 from sqlalchemy.exc import IntegrityError
 
 from app.utils import SingletonMeta
-from app.security.securityConfig import SecurityConfig
+from app.infra.security.securityConfig import SecurityConfig
 from app.exceptions import EntityUniqueViolationException, EntityNotFoundException
 
 from .user import User
@@ -41,6 +41,9 @@ class UserService(metaclass=SingletonMeta):
 
     def get_all(self):
         return self.user_repository.find_all()
+
+    def get_all_final_users(self):
+        return self.user_repository.find_all_by_role_user()
 
     def get_by_id(self, user_id):
         user = self.user_repository.find_by_id(user_id)

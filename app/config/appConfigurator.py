@@ -2,7 +2,7 @@
 
 import logging
 
-from ..security import SecurityConfig, SecurityHandlers
+from ..infra.security import SecurityConfig, SecurityHandlers
 from ..exceptions import ApiHandlerException
 
 from app.domain.gest_pessoas.cidade import CidadeCache

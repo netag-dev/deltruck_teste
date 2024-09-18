@@ -1,10 +1,17 @@
 # userEditPasswordSchema.py
 import logging
 
-from marshmallow import Schema, fields, validate, ValidationError, validates_schema, post_load
+from marshmallow import (
+    Schema,
+    fields,
+    validate,
+    ValidationError,
+    validates_schema,
+    post_load,
+)
 
 from app.utils import ValidationUtils
-from app.security.securityConfig import SecurityConfig
+from app.infra.security.securityConfig import SecurityConfig
 
 from ..user import User
 
@@ -13,10 +20,12 @@ class UserEditPasswordSchema(Schema):
 
     new_password = fields.Str(
         required=True,
-        validate=[ValidationUtils.password()],)
+        validate=[ValidationUtils.password()],
+    )
     confirm_password = fields.Str(
         required=True,
-        validate=[ValidationUtils.password()],)
+        validate=[ValidationUtils.password()],
+    )
 
     @validates_schema
     def validate_passwords_match(self, data, **kwargs):
@@ -32,7 +41,7 @@ class UserEditPasswordSchema(Schema):
         """Cria um dicionário com apenas o campo password."""
         # Cria um dicionário contendo o campo password
         # Criptografar a password
-        new_password = SecurityConfig.hash_password(data.get('new_password'))
-        password_dict = {'password': new_password}
+        new_password = SecurityConfig.hash_password(data.get("new_password"))
+        password_dict = {"password": new_password}
 
         return password_dict
