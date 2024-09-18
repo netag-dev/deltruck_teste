@@ -15,10 +15,12 @@ class UserRepository(BaseRepository):
     def find_user_by_user_email(self, user_email):
         return db.session.query(User).filter_by(user_email=user_email).one_or_none()
 
-    def find_all_except_role_user_and_root(self):
+
+    def find_all_except_role_user_and_root(self, archived = False):
         """Retorna todos os usuários, exceto aqueles com os papéis 'USER' e 'ROOT'."""
         return (
             db.session.query(User)
+            .filter_by(archived=archived)
             .join(User.role)
             .filter(Role.name.notin_(["USER", "ROOT"]))
             .all()

@@ -1,6 +1,5 @@
 # encomendaResponseSchema.py
 
-
 from marshmallow import Schema, fields
 from app.domain.gest_pessoas.pessoa.schemas import (
     PessoaResponseSchema,
@@ -9,7 +8,6 @@ from app.domain.gest_encomendas.transportadora import TransportadoraResponseSche
 from app.domain.gest_encomendas.status_encomenda.schemas import (
     StatusEncomendaResponseSchema,
 )
-
 
 class EncomendaResponseSchema(Schema):
     id = fields.Int()

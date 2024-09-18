@@ -12,8 +12,8 @@ class ValidationUtils:
     @staticmethod
     def password():
         return validate.Regexp(
-            r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/`~])[A-Za-z\d@!#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/`~]{8,}$",
+            r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/`~])[A-Za-z\d@!#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/`~]{6,}$",
             error=(
-                "A senha deve ter pelo menos 8 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial."
+                "A senha deve ter pelo menos 6 caracteres, incluindo uma letra maiúscula, uma letra minúscula, um número e um caractere especial."
             ),
         )
