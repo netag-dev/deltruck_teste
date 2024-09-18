@@ -26,3 +26,8 @@ class AuthService(metaclass=SingletonMeta):
         if not SecurityConfig.check_password(user.password, password):
             raise InvalidPasswordException("Credenciais inválidas.")
         return user
+
+    def authenticate_user(self, auth_code):
+        """Autenticação baseada codigo de autenticao enviado no email"""
+
+        logging.info("0: AuthService.authenticate_user()")
