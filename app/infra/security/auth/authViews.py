@@ -7,10 +7,11 @@ import logging
 from flask import request, jsonify, json
 from flask_jwt_extended import decode_token
 from flask.views import MethodView
+from werkzeug.exceptions import Forbidden
 
 from datetime import datetime, timezone
 
-from app.utils import SchemaUtils
+from app.utils.schemaUtils import SchemaUtils
 
 from app.infra.security.token import TokenService
 from app.infra.security.auth import AuthService
@@ -27,10 +28,12 @@ class AuthApi(MethodView):
     def post(self):
         if request.path.endswith("/login"):
             return self._post_login()
+        elif request.path.endswith("/final-user"):
+            return self._post_login(True)
         else:
             return self._post_logout()
 
-    def _post_login(self):
+    def _post_login(self, final_user=False):
         """Método POST para login."""
 
         user_login_data = request.get_json()
@@ -38,7 +41,22 @@ class AuthApi(MethodView):
         user = SchemaUtils.deserialize(UserLoginSchema(), user_login_data)
 
         # Autenticar o usuário
-        user_auth = self.auth_service.authenticate_user(user.user_email, user.password)
+        if final_user:
+            auth_code = user_login_data.get("auth_code")
+            user_auth = self.auth_service.authenticate_user_with_two_factor(
+                user.user_email, user.password, auth_code
+            )
+
+            if user_auth is None:
+                raise Forbidden(
+                    "Para autenticação de dois fatores é necessário que o usuário tenha o papel USER."
+                )
+
+        else:
+
+            user_auth = self.auth_service.authenticate_user(
+                user.user_email, user.password
+            )
 
         # Gerar o token para o usuário autenticado
         # O cliente pode usar uma biblioteca como 'jwt-decode' para ler o conteúdo do JWT,

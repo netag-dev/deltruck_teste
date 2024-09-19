@@ -4,7 +4,7 @@ from marshmallow import Schema, fields, validate, post_load
 from app.domain.gest_pessoas.pessoa.schemas import PessoaEditSchema
 from app.domain.gest_usuarios.user import User
 
-from app.utils import ValidationUtils
+from app.utils.validationUtils import ValidationUtils
 
 
 class ProfileEditSchema(Schema):

@@ -32,6 +32,8 @@ class Config(object):
     JWT_PRIVATE_KEY = config("JWT_PRIVATE_KEY")
     JWT_PUBLIC_KEY = config("JWT_PUBLIC_KEY")
 
+    AUTH_CODE_EXPIRATION = config("AUTH_CODE_EXPIRATION", default=900, cast=int)
+
     # Configura Flask-Caching para usar Redis
 
     # CACHE_TYPE = "redis"

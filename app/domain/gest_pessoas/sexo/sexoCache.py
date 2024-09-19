@@ -5,7 +5,9 @@ import logging
 from flask import current_app
 
 from app.extensions import cache
-from app.utils import CacheUtils, DateUtils
+
+from app.utils.cacheUtils import CacheUtils
+from app.utils.dateUtils import DateUtils
 
 from datetime import timedelta
 

@@ -1,13 +1,15 @@
 # cidadeViews.py
 
 from flask import request, jsonify, json
+from flask.views import MethodView
 
-from app.utils import BaseProtectedView, SchemaUtils
+from app.utils.schemaUtils import SchemaUtils
+
 from . import CidadeService
 from .schemas import CidadeResponseSchema
 
 
-class CidadeApi(BaseProtectedView):
+class CidadeApi(MethodView):
     def __init__(self):
         super().__init__()
         self.cidade_service = CidadeService()

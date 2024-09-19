@@ -2,7 +2,8 @@
 
 from marshmallow import Schema, fields, validate, post_load
 from app.domain.gest_pessoas.pessoa.schemas import PessoaCreateSchema
-from app.utils import ValidationUtils
+
+from app.utils.validationUtils import ValidationUtils
 
 from ..user import User
 

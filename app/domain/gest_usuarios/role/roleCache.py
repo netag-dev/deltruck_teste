@@ -5,7 +5,8 @@ import logging
 from flask import current_app
 
 from app.extensions import cache
-from app.utils import CacheUtils, DateUtils
+from app.utils.cacheUtils import CacheUtils
+from app.utils.dateUtils import DateUtils
 
 from .roleService import RoleService
 
@@ -20,7 +21,8 @@ class RoleCache:
         """
         try:
             cache_timeout_seconds = DateUtils.days_to_seconds(
-                CacheUtils.get_cache_timeout_days())
+                CacheUtils.get_cache_timeout_days()
+            )
 
             roles = self.role_service.get_all()
             roles_data = {role.id: role.name for role in roles}

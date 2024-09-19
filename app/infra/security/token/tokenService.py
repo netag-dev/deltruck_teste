@@ -4,10 +4,12 @@ import logging
 
 from flask_jwt_extended import create_access_token
 
+from app.utils.singletonMeta import SingletonMeta
+
 from app.exceptions import EntityUniqueViolationException
 
 
-class TokenService:
+class TokenService(metaclass=SingletonMeta):
     """Gerenciamento de tokens JWT"""
 
     def generate_token(self, user_id, user_name, role_name):

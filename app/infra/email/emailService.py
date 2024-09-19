@@ -2,7 +2,7 @@
 
 import logging
 
-from app.utils import SingletonMeta
+from app.utils.singletonMeta import SingletonMeta
 
 from flask_mail import Message
 from flask import current_app

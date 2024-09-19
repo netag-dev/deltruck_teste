@@ -1,6 +1,6 @@
 # permissionService.py
 
-from app.utils import SingletonMeta
+from app.utils.singletonMeta import SingletonMeta
 
 from .permission import Permission
 from .permissionRepository import PermissionRepository

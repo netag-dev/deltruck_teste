@@ -1,6 +1,6 @@
 # sexoService.py
 
-from app.utils import SingletonMeta
+from app.utils.singletonMeta import SingletonMeta
 
 from .sexo import Sexo
 from .sexoRepository import SexoRepository

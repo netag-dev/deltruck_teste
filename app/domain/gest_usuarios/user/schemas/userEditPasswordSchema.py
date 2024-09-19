@@ -10,7 +10,7 @@ from marshmallow import (
     post_load,
 )
 
-from app.utils import ValidationUtils
+from app.utils.validationUtils import ValidationUtils
 from app.infra.security.securityConfig import SecurityConfig
 
 from ..user import User

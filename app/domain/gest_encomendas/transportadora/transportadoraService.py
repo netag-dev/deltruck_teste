@@ -4,7 +4,7 @@ import logging
 
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from app.exceptions import EntityUniqueViolationException, EntityNotFoundException
-from app.utils import SingletonMeta
+from app.utils.singletonMeta import SingletonMeta
 
 from .transportadora import Transportadora
 from .transportadoraRepository import TransportadoraRepository

@@ -1,6 +1,6 @@
 # cidadeService.py
 
-from app.utils import SingletonMeta
+from app.utils.singletonMeta import SingletonMeta
 
 from .cidade import Cidade
 from .cidadeRepository import CidadeRepository

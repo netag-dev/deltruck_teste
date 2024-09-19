@@ -4,16 +4,18 @@ from marshmallow import Schema, fields, post_load
 
 from app.domain.gest_usuarios.user import User
 from app.domain.gest_pessoas.pessoa.schemas import PessoaEditSchema
-from app.utils import ValidationUtils
+
+from app.utils.validationUtils import ValidationUtils
+
 
 class UserEditScheme(Schema):
     """Esse schema pode ser usado tanto para:
 
-     1. Response: Os dados retornados na resposta são utilizados em requisições PUT
-     2. Request: Para valida e carregar os dado do cliente em requisições PUT
-     """
+    1. Response: Os dados retornados na resposta são utilizados em requisições PUT
+    2. Request: Para valida e carregar os dado do cliente em requisições PUT
+    """
 
-    id = fields.Int() 
+    id = fields.Int()
     user_email = fields.Str(
         validate=[ValidationUtils.email()],
     )
@@ -24,9 +26,6 @@ class UserEditScheme(Schema):
         PessoaEditSchema, only=("id", "primeiro_nome", "ultimo_nome")
     )
 
-    @post_load # Chamado no momento da desserializacao usando 'load'
+    @post_load  # Chamado no momento da desserializacao usando 'load'
     def make_user(self, data, **kwargs):
         return User(**data)
-
-
-    

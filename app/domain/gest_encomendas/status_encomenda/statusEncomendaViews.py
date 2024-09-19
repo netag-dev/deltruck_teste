@@ -1,15 +1,16 @@
 # statusEncomendaViews.py
 
 from flask import request, jsonify, json
+from flask.views import MethodView
 
-from app.utils import BaseProtectedView, SchemaUtils
+from app.utils.schemaUtils import SchemaUtils
 from app.domain.gest_encomendas.status_encomenda.schemas import (
     StatusEncomendaResponseSchema,
 )
 from . import StatusEncomendaService
 
 
-class StatusEncomendaApi(BaseProtectedView):
+class StatusEncomendaApi(MethodView):
     def __init__(self):
         super().__init__()
         self.status_encomenda_service = StatusEncomendaService()

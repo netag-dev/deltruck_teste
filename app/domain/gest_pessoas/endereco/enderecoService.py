@@ -2,7 +2,7 @@
 
 import logging
 
-from app.utils import SingletonMeta
+from app.utils.singletonMeta import SingletonMeta
 
 from .endereco import Endereco
 from .enderecoRepository import EnderecoRepository

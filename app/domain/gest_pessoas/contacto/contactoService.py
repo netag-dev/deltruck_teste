@@ -2,7 +2,7 @@
 
 import logging
 
-from app.utils import SingletonMeta
+from app.utils.singletonMeta import SingletonMeta
 
 from .contacto import Contacto
 from .contactoRepository import ContactoRepository

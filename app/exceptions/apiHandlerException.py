@@ -9,8 +9,11 @@ from sqlalchemy.exc import IntegrityError
 from jwt.exceptions import InvalidTokenError
 
 from . import EntityNotFoundException, EntityUniqueViolationException
-from ..infra.security.auth.exceptions.invalidPasswordException import (
-    InvalidPasswordException,
+from ..infra.security.auth.exceptions.invalidCredentialsException import (
+    InvalidCredentialsException,
+)
+from ..infra.security.auth.exceptions.invalidAuthCodeException import (
+    InvalidAuthCodeException,
 )
 
 from marshmallow import ValidationError
@@ -49,9 +52,15 @@ class ApiHandlerException:
             logging.error("Token inválido ou expirado: %s", error)
             return jsonify({"message": str(error)}), 401
 
-        @self.app.errorhandler(InvalidPasswordException)
-        def handle_invalid_password_exception(error):
-            """Manipula a exceção quando a senha é inválida."""
+        @self.app.errorhandler(InvalidCredentialsException)
+        def handle_invalid_credentials_exception(error):
+            """Manipula a exceção quando as credências forem inválidas."""
+            logging.error("Api Error - %s", error)
+            return jsonify({"msg": str(error)}), 401
+
+        @self.app.errorhandler(InvalidAuthCodeException)
+        def handle_invalid_auth_code_exception(error):
+            """Manipula a exceção quando oo codigo de autenticação for invalido."""
             logging.error("Api Error - %s", error)
             return jsonify({"msg": str(error)}), 401
 

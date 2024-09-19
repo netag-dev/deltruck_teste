@@ -4,9 +4,10 @@ import logging
 
 from sqlalchemy.exc import IntegrityError
 
-from app.utils import SingletonMeta
+from app.utils.singletonMeta import SingletonMeta
 from app.infra.security.securityConfig import SecurityConfig
-from app.exceptions import EntityUniqueViolationException, EntityNotFoundException
+from app.exceptions.entityNotFoundException import EntityNotFoundException
+from app.exceptions.entityUniqueViolationException import EntityUniqueViolationException
 
 from .user import User
 from .userRepository import UserRepository

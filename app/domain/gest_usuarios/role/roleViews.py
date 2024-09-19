@@ -1,13 +1,15 @@
 # roleViews.py
 
 from flask import request, jsonify, json
+from flask.views import MethodView
 
-from app.utils import BaseProtectedView, SchemaUtils
+from app.utils.schemaUtils import SchemaUtils
+
 from . import RoleService
 from .schemas import RoleResponseSchema
 
 
-class RolesApi(BaseProtectedView):
+class RolesApi(MethodView):
     def __init__(self):
         super().__init__()
         self.role_service = RoleService()

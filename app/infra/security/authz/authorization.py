@@ -15,12 +15,14 @@ class Authorization:
         Returns:
         - function: A função decorada que verifica a autorização do usuário.
         """
+
         def decorator(f):
             @wraps(f)
             def wrapper(*args, **kwargs):
                 # 88888888
                 raise Forbidden(
-                    description="Você não possui os papéis necessários para acessar este recurso.")
+                    description="Você não possui os papéis necessários para acessar este recurso."
+                )
                 # Continuar com a execução da rota
                 return f(*args, **kwargs)
 

@@ -79,3 +79,8 @@ def _show_log_configurations(app):
         "5:app/__init__._show_log_configurations(): CORS_ORIGINS: %s",
         (app.config.get("CORS_ORIGINS")).split(","),
     )
+
+    logging.info(
+        "6:app/__init__._show_log_configurations(): AUTH_CODE_EXPIRATION: %s",
+        (app.config.get("AUTH_CODE_EXPIRATION")),
+    )

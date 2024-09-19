@@ -1,6 +1,6 @@
 # roleService.py.py
 
-from app.utils import SingletonMeta
+from app.utils.singletonMeta import SingletonMeta
 
 from .role import Role
 from .roleRepository import RoleRepository

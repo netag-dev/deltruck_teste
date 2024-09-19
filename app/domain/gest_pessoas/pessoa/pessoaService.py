@@ -5,7 +5,9 @@ import logging
 from sqlalchemy.exc import IntegrityError
 
 from app.exceptions import EntityUniqueViolationException
-from app.utils import SingletonMeta, BaseRepository, DictUtils
+
+from app.utils.baseRepository import BaseRepository
+from app.utils.singletonMeta import SingletonMeta
 
 from ..sexo import SexoService
 from ..cidade import CidadeService

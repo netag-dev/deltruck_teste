@@ -1,13 +1,15 @@
 # sexoViews.py
 
 from flask import request, jsonify, json
+from flask.views import MethodView
 
-from app.utils import BaseProtectedView, SchemaUtils
+from app.utils.schemaUtils import SchemaUtils
+
 from . import SexoService
 from .schemas import SexoResponseSchema
 
 
-class SexoApi(BaseProtectedView):
+class SexoApi(MethodView):
     def __init__(self):
         super().__init__()
         self.sexo_service = SexoService()

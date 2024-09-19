@@ -3,8 +3,10 @@
 import logging
 
 from flask import request, jsonify, json
+from flask.views import MethodView
 
-from app.utils import BaseProtectedView, SchemaUtils, HateoasLinkGenerator
+from app.utils.schemaUtils import SchemaUtils
+from app.utils.hateoasLinkGenerator import HateoasLinkGenerator
 
 from app.domain.gest_encomendas.encomenda import EncomendaService
 from app.domain.gest_encomendas.encomenda.schemas import (
@@ -14,7 +16,7 @@ from app.domain.gest_encomendas.encomenda.schemas import (
 )
 
 
-class EncomendaApi(BaseProtectedView):
+class EncomendaApi(MethodView):
     def __init__(self):
         super().__init__()
         self.encomenda_service = EncomendaService()

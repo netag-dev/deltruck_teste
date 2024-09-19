@@ -5,7 +5,9 @@ import logging
 from flask import current_app
 
 from app.extensions import cache
-from app.utils import CacheUtils, DateUtils
+
+from app.utils.cacheUtils import CacheUtils
+from app.utils.dateUtils import DateUtils
 
 from datetime import timedelta
 
@@ -22,7 +24,8 @@ class CidadeCache:
         """
         try:
             cache_timeout_seconds = DateUtils.days_to_seconds(
-                CacheUtils.get_cache_timeout_days())
+                CacheUtils.get_cache_timeout_days()
+            )
 
             cidades = self.cidade_service.get_all()
             cidades_data = {cidade.id: cidade.nome for cidade in cidades}
