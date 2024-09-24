@@ -23,3 +23,15 @@ def auth_blueprints(app, BASE_API_URL):
         view_func=login_view,
         methods=["POST"],
     )
+
+    app.add_url_rule(
+        f"{BASE_API_URL}/auth/login/final-user/send-email-verification",
+        view_func=login_view,
+        methods=["POST"],
+    )
+
+    app.add_url_rule(
+        f"{BASE_API_URL}/auth/login/final-user/auth-code-verification",
+        view_func=login_view,
+        methods=["GET"],
+    )

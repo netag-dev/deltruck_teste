@@ -20,8 +20,8 @@ class EncomendaService(metaclass=SingletonMeta):
 
     def create(self, encomenda: Encomenda):
         try:
-            id_status_encomenda = self.status_encomenda_service.get_by_nome(
-                "Pendente"
+            id_status_encomenda = self.status_encomenda_service.get_by_codigo(
+                "pendente"
             ).id
 
             encomenda.id_status_encomenda = id_status_encomenda
@@ -52,10 +52,18 @@ class EncomendaService(metaclass=SingletonMeta):
             )
         return updated
 
-    def update_partial(self, encomenda_fields, id):
-        return self.encomenda_repository.update_partial(encomenda_fields, id)
+    def update_partial(self, encomenda_fields, encomenda_id):
+        rows_updated = self.encomenda_repository.update_partial(
+            encomenda_fields, encomenda_id
+        )
+        logging.info("encomenda 00000000 %s", rows_updated)
+        if rows_updated == 0:
+            raise EntityNotFoundException(
+                f"Encomenda com id {encomenda_id} não encontrado."
+            )
 
-    def cancelar(self, id):
-        status_encomenda_id = self.status_encomenda_service.get_by_nome("Cancelado").id
-        encomenda_fields = {"id_status_encomenda": status_encomenda_id}
-        return self.encomenda_repository.update_partial(encomenda_fields, id)
+    def cancelar(self, encomenda_id):
+        status_encomenda = self.status_encomenda_service.get_by_codigo("cancelado")
+
+        encomenda_fields = {"id_status_encomenda": status_encomenda.id}
+        return self.update_partial(encomenda_fields, encomenda_id)

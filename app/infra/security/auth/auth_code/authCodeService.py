@@ -30,11 +30,21 @@ class AuthCodeService(metaclass=SingletonMeta):
             raise EntityNotFoundException(f"AuthCode: {code} não encontrado.")
         return auth
 
+    def get_by_code(self, code):
+        auth = self.auth_code_repository.find_by_code(code)
+        if auth is None:
+            raise EntityNotFoundException(f"AuthCode: {code} não encontrado.")
+        return auth
+
     def delete(self, id):
         return self.auth_code_repository.delete(id)
 
+    def delete_by_code(self, code):
+        auth_code = self.get_by_code(code)
+        self.delete(auth_code.id)
+
     def is_auth_code_valid(self, auth_code):
-        auth = self.get_by_code(auth_code)
+        auth_code = self.get_by_code(auth_code)
 
         current_time = datetime.now()
 
@@ -44,7 +54,7 @@ class AuthCodeService(metaclass=SingletonMeta):
         )
 
         if current_time < expiration_datetime:
-            return auth
+            return auth_code
         else:
             return None
 

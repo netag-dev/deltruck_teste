@@ -18,7 +18,7 @@ class EmailService(metaclass=SingletonMeta):
                 sender=current_app.config["MAIL_DEFAULT_SENDER"],
                 recipients=[recipients],
             )
-            msg.body = body
+            msg.html = body
             mail.send(msg)
             logging.info("EmailService.send_email(): Email enviado com sucesso!")
         except Exception as e:

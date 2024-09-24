@@ -15,11 +15,16 @@ from app.domain.gest_encomendas.encomenda.schemas import (
     EncomendaEditSchema,
 )
 
+from app.domain.gest_encomendas.status_encomenda.statusEncomendaService import (
+    StatusEncomendaService,
+)
+
 
 class EncomendaApi(MethodView):
     def __init__(self):
         super().__init__()
         self.encomenda_service = EncomendaService()
+        self.status_encomenda_service = StatusEncomendaService()
         self.hateos_link_generator = HateoasLinkGenerator(
             {
                 "self": "encomenda_api",
@@ -106,12 +111,30 @@ class EncomendaApi(MethodView):
         """
 
         if request.path.endswith("/cancel"):
+            return self._patch_status_cancelar(encomenda_id)
+        if request.path.endswith("/status"):
             return self._patch_status(encomenda_id)
 
-    def _patch_status(self, encomenda_id):
+    def _patch_status_cancelar(self, encomenda_id):
 
         self.encomenda_service.cancelar(encomenda_id)
 
         # Retorna uma resposta com status 204 (No Contect) indicando que o status foi
         # actualizado com sucesso.
+        return "", 204
+
+    def _patch_status(self, encomenda_id):
+        status_codigo = request.args.get("status")
+
+        status_encontrado = self.status_encomenda_service.get_by_codigo(status_codigo)
+
+        encomenda_fields = {"id_status_encomenda": status_encontrado.id}
+
+        self.encomenda_service.update_partial(
+            encomenda_fields,
+            encomenda_id,
+        )
+
+        # Retorna uma resposta com status 204 (No Contect) indicando que o status da encomend foi
+        # actualizada com sucesso.
         return "", 204

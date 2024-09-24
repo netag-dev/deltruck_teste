@@ -27,3 +27,9 @@ def encomenda_blueprints(app, BASE_API_URL):
         view_func=encomenda_views,
         methods=["PATCH"],
     )
+
+    app.add_url_rule(
+        f"{BASE_API_URL}/encomendas/<int:encomenda_id>/status",
+        view_func=encomenda_views,
+        methods=["PATCH"],
+    )

@@ -16,3 +16,4 @@ def register_domain_blueprints(app):
     transportadora_blueprints(app, BASE_API_URL)
     status_encomenda_blueprints(app, BASE_API_URL)
     encomenda_blueprints(app, BASE_API_URL)
+    loc_encomenda_blueprints(app, BASE_API_URL)

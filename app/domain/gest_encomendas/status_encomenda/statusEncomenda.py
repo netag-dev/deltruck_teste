@@ -11,4 +11,7 @@ class StatusEncomenda(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(
         db.String, nullable=False, unique=True
-    )  # Cancelado, Em Transito(ex., Pendente, Em Trânsito, Cancelado, etc )
+    )  # ex., Pendente, Em Trânsito, Cancelado, etc
+    codigo = db.Column(
+        db.String, nullable=False, unique=True
+    )  # ex., pendente, em-transito, cancelado, etc

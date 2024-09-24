@@ -8,11 +8,9 @@ from flask.views import MethodView
 from flask_jwt_extended import jwt_required
 
 from app.utils.schemaUtils import SchemaUtils
-from app.utils.dateUtils import DateUtils
+
 
 from app.utils.hateoasLinkGenerator import HateoasLinkGenerator
-
-from app.infra.email.emailService import EmailService
 
 from app.infra.security.authz.authorization import Authorization as authorization
 
@@ -29,17 +27,12 @@ from app.domain.gest_pessoas.pessoa.pessoaService import PessoaService
 from app.domain.gest_usuarios.role.roleService import RoleService
 from app.domain.gest_pessoas.pessoa.schemas import PessoaCreateSchema
 
-from app.infra.security.auth.auth_code.authCode import AuthCode
-from app.infra.security.auth.auth_code.authCodeService import AuthCodeService
-
 
 class UsersApi(MethodView):
     def __init__(self):
         super().__init__()
         self.user_service = UserService()
         self.role_service = RoleService()
-        self.email_service = EmailService()
-        self.auth_code_service = AuthCodeService()
         self.pessoa_service = PessoaService()
         self.hateos_link_generator = HateoasLinkGenerator(
             {
@@ -94,29 +87,6 @@ class UsersApi(MethodView):
 
         # Cria o usuário no banco de dados, junto com a nova pessoa associada
         user_criado = self.user_service.create(user)
-
-        #
-        auth_code_time = AuthCodeService.get_auth_code_expiration_time()
-
-        code = AuthCodeService.generate_auth_code()
-        subject = "Código de autenticação"
-        recipients = user_criado.user_email
-
-        auth_code = AuthCode(code=code, expiration_time=auth_code_time)
-        auth_code_criado = self.auth_code_service.create(auth_code)
-
-        auth_code_expire = current_app.config.get("AUTH_CODE_EXPIRATION")
-
-        body = (
-            f"Olá, {user_criado.pessoa.primeiro_nome} {user_criado.pessoa.ultimo_nome},\n\n"
-            f"Seu código de autenticação é {code}\n\n"
-            f"Este código é válido por {DateUtils.seconds_to_minutes(auth_code_expire)} minutos."
-        )
-
-        logging.info("0: UsersApi()._post_user_final:  auth code: %s", code)
-        logging.info("1: UsersApi()._post_user_final:  auth code: %s", auth_code_criado)
-
-        self.email_service.send_email(subject, recipients, body)
 
         # retorna uma resposta com status 201 (CREATED) e corpo contendo os dados do usuário.
         return jsonify(SchemaUtils.serialize(UserResponseSchema(), user_criado)), 201

@@ -32,24 +32,17 @@ class AuthService(metaclass=SingletonMeta):
             raise InvalidCredentialsException("Credenciais inválidas.")
         return user
 
-    def authenticate_user_with_two_factor(self, user_email, password, auth_code=None):
-        """Autentica um usuário baseado em email, senha e código de autenticação (dois fatores)."""
-
+    def authenticate_two_factor(self, auth_code):
+        """Autentica o código de autenticação de dois fatores."""
         logging.debug("0: AuthService.authenticate_user_with_two_factor()")
 
-        user = self.authenticate_user(user_email, password)
+        auth_code_encontrado = self.auth_code_service.is_auth_code_valid(
+            auth_code.upper()
+        )
 
-        if user.role.name != "USER":
-            return None
-
-        logging.debug("1: AuthService.authenticate_user_with_two_factor()")
-
-        auth = self.auth_code_service.is_auth_code_valid(auth_code.upper())
-
-        if auth_code and auth:
-            logging.debug("2: AuthService.authenticate_user_with_two_factor()")
-            self.auth_code_service.delete(auth.id)
-            return user
+        if auth_code_encontrado:
+            logging.debug("1: AuthService.authenticate_user_with_two_factor()")
+            self.auth_code_service.delete_by_code(auth_code_encontrado.code)
         else:
             raise InvalidAuthCodeException(
                 "Código de autenticação inválido ou Expirado."
