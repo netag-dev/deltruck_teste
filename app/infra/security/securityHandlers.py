@@ -26,17 +26,17 @@ class SecurityHandlers:
                 "SecurityHandlers._register_before_requests.generate_nonce() %s", nonce
             )
 
-        # @self.app.before_request
-        # def check_jwt():
-        #     """Verifica se o token JWT está presente, exceto para as rotas públicas."""
+        @self.app.before_request
+        def check_jwt():
+            """Verifica se o token JWT está presente, exceto para as rotas públicas."""
 
-        #     open_routes = ["/login", "/users/final", "/roles", "/sexos", "/cidades"]
+            open_routes = ["/login", "/users/final", "/roles", "/sexos", "/cidades"]
 
-        #     if not any(request.path.endswith(route) for route in open_routes):
-        #         try:
-        #             verify_jwt_in_request()
-        #         except NoAuthorizationError as e:
-        #             return jsonify({"msg": str(e)}), 401
+            if not any(request.path.endswith(route) for route in open_routes):
+                try:
+                    verify_jwt_in_request()
+                except NoAuthorizationError as e:
+                    return jsonify({"msg": str(e)}), 401
 
     def _register_after_requests(self):
         """Registra o manipulador after_request."""
